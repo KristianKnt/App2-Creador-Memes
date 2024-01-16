@@ -6,7 +6,7 @@ class CreadorMemes {
         this.imagen = document.getElementById('imagen');
         this.texoSuperior = document.getElementById('textoSuperiror')
         this.textoInferior = document.getElementById('testoInferior');
-        this.descargarMeme = document.getElementById('descargarMeme');
+        this.btnDescargarMeme = document.getElementById('descargarMeme');
 
         this.crearCanvas();
         this.agregarEventListeners();
@@ -30,7 +30,7 @@ class CreadorMemes {
 
         entradas.forEach(e => e.addEventListener('keyup', this.crearMeme));
         entradas.forEach(e => e.addEventListener('change', this.crearMeme));
-        this.descargarMeme.addEventListener('click', this.descargarMeme);
+        this.btnDescargarMeme.addEventListener('click', this.descargarMeme);
 
     }
 
@@ -40,10 +40,10 @@ class CreadorMemes {
         if (this.imagen.files && this.imagen.files[0]) {
             let lector = new FileReader();
 
-            lector.onload = function () {
+            lector.onload = () => {
                 let image = new Image();
 
-                image.onload = funtion(){
+                image.onload = ()=>{
                     this.imagenCanvas.height = image.height;
                     this.imagenCanvas.width = image.width;
 
@@ -93,21 +93,21 @@ class CreadorMemes {
     }
 
     redimensionarCanvas(alto, ancho) {
-        this.imagenCanvas.height = '${alto}px';
-        this.imagenCanvas.width = '${alto}px';
+        this.imagenCanvas.style.height = '${alto}px';
+        this.imagenCanvas.style.width = '${alto}px';
 
         while(alto > Math.min(1000, ANCHO_DISPOSITIVO-30) && ancho > Math.min(1000, ANCHO_DISPOSITIVO-30)){
             alto /= 2;
             ancho /= 2;
-            this.imagenCanvas.height = '${alto}px';
-            this.imagenCanvas.width = '${alto}px';
+            this.imagenCanvas.style.height = '${alto}px';
+            this.imagenCanvas.style.width = '${alto}px';
 
         }
 
     }
 
     descargarMeme() {
-        if(this.imagen.file[0]){
+        if(!this.imagen.file[0]){
             this.imagen.parentElement.classList.add('has-error');
             return;
         }
@@ -123,7 +123,10 @@ class CreadorMemes {
 
         let fuenteImagen = this.imagenCanvas.toDataURL('image/png');
         let atributo = document.createAttribute('href');
-        fuenteImagen.replace(/^data:image\/[^;/],0)
+        atributo.value = fuenteImagen.replace(/^data:image\/[^;]/,'data:application/octet-stream');
+        this.btnDescargarMeme.setAttributeNode(atributo)
     }
 
 }
+
+new CreadorMemes();
