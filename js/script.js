@@ -1,4 +1,4 @@
-const ANCHO_DISPOSITIVO = window.innerWidth;
+const ANCHO_DISPOSITIVO = window.innerWidth;// ancho al interior de la ventana 
 
 class CreadorMemes{
     constructor() {
