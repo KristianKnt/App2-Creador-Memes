@@ -35,7 +35,7 @@ class CreadorMemes{
 
         if(this.imagen.files && this.imagen.files[0]){
             let lector = new FileReader();
-
+            // scope de la variable this al estar dentro de una funtion no hace refencia al spoce de la clase
             lector.onload = () => {
                 let image = new Image();
 
