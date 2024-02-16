@@ -111,3 +111,4 @@ class CreadorMemes{
 }
 
 new CreadorMemes();
+// cualquier cosa seguir repasando lo estudiado hasta lograr entenderlo no es mas para este proyecto
